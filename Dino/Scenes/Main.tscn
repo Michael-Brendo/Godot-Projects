@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://sprites/offline-sprite-2x-black.png" type="Texture" id=1]
+[ext_resource path="res://scripts/Dino.gd" type="Script" id=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 24.0383, 35.2477 )
+
+[node name="Main" type="Node"]
+
+[node name="Dino" type="Area2D" parent="."]
+position = Vector2( 54.4642, 673.248 )
+script = ExtResource( 2 )
+
+[node name="offline-sprite-2x-black" type="Sprite" parent="Dino"]
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 1337, 2, 89, 94 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Dino"]
+shape = SubResource( 1 )
