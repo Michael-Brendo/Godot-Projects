@@ -1,0 +1,130 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Scripts/Nave.gd" type="Script" id=1]
+[ext_resource path="res://Scripts/Jogo.gd" type="Script" id=2]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.105882, 0.717647, 0.788235, 1 )
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0.415686, 0.427451, 0.427451, 1 )
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[node name="Jogo" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="Interface" type="CanvasLayer" parent="."]
+
+[node name="ProgressBar" type="ProgressBar" parent="Interface"]
+margin_left = 32.0
+margin_top = 92.0
+margin_right = 95.0
+margin_bottom = 106.0
+rect_rotation = -89.9999
+custom_styles/fg = SubResource( 1 )
+custom_styles/bg = SubResource( 2 )
+percent_visible = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="Nave" type="RigidBody2D" parent="."]
+position = Vector2( 64, 554 )
+contacts_reported = 5
+contact_monitor = true
+linear_damp = 0.8
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Nave"]
+polygon = PoolVector2Array( -10, 10, 10, 10, 0, -20 )
+
+[node name="Polygon2D" type="Polygon2D" parent="Nave"]
+color = Color( 0.0745098, 0.517647, 0.435294, 1 )
+polygon = PoolVector2Array( -10, 10, 10, 10, 0, -20 )
+
+[node name="Inicio" type="StaticBody2D" parent="."]
+position = Vector2( 64, 572 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Inicio"]
+polygon = PoolVector2Array( -20, 10, 20, 10, 10, -10, 0, -10, -10, -10 )
+
+[node name="Polygon2D" type="Polygon2D" parent="Inicio"]
+color = Color( 0.443137, 0.517647, 0.0745098, 1 )
+polygon = PoolVector2Array( -20, 10, 20, 10, 10, -10, 0, -10, -10, -10 )
+
+[node name="Chegada" type="StaticBody2D" parent="."]
+position = Vector2( 893, 572 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Chegada"]
+polygon = PoolVector2Array( -20, 10, 20, 10, 10, -10, 0, -10, -10, -10 )
+
+[node name="Polygon2D" type="Polygon2D" parent="Chegada"]
+color = Color( 0.203922, 0.517647, 0.0745098, 1 )
+polygon = PoolVector2Array( -20, 10, 20, 10, 10, -10, 0, -10, -10, -10 )
+
+[node name="Obstaculo" type="StaticBody2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Obstaculo"]
+visible = false
+build_mode = 1
+polygon = PoolVector2Array( 23, 582, 1010, 580, 1010, 20, 20, 20 )
+
+[node name="Polygon2D" type="Polygon2D" parent="Obstaculo"]
+color = Color( 0.8, 0.14902, 0.0627451, 1 )
+invert_enable = true
+invert_border = 20.0
+polygon = PoolVector2Array( 23, 582, 1010, 580, 1010, 20, 20, 21 )
+
+[node name="espinho" type="CollisionPolygon2D" parent="Obstaculo"]
+position = Vector2( -32, 2 )
+build_mode = 1
+polygon = PoolVector2Array( 130, 580, 220, 580, 170, 159 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Polygon2D" type="Polygon2D" parent="Obstaculo/espinho"]
+color = Color( 0.8, 0.14902, 0.0627451, 1 )
+polygon = PoolVector2Array( 130, 580, 220, 580, 170, 160 )
+
+[node name="espinho2" type="CollisionPolygon2D" parent="Obstaculo"]
+position = Vector2( 545, 1 )
+build_mode = 1
+polygon = PoolVector2Array( 130, 580, 220, 580, 170, 159 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Polygon2D" type="Polygon2D" parent="Obstaculo/espinho2"]
+color = Color( 0.8, 0.14902, 0.0627451, 1 )
+polygon = PoolVector2Array( 130, 580, 220, 580, 170, 160 )
+
+[node name="espinho3" type="CollisionPolygon2D" parent="Obstaculo"]
+position = Vector2( 586, 600 )
+rotation = 3.14159
+build_mode = 1
+polygon = PoolVector2Array( 130, 580, 220, 580, 170, 159 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Polygon2D" type="Polygon2D" parent="Obstaculo/espinho3"]
+color = Color( 0.8, 0.14902, 0.0627451, 1 )
+polygon = PoolVector2Array( 130, 580, 220, 580, 170, 160 )
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
+[connection signal="body_entered" from="Nave" to="." method="_on_Nave_body_entered"]
+[connection signal="body_exited" from="Nave" to="." method="_on_Nave_body_exited"]
